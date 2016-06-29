@@ -1,4 +1,4 @@
-## Rot 13
+# Rot 13
 
 This is an app that lets you **Rot-13** some text. Rot-13 is a simple
 algorithm on text that increment every letter by 13. This is app currently
