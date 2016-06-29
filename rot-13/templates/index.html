@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-2.2.4.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--Google Font-->
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <!--Local CSS-->
+    <style>
+        h1{
+            font-family: 'Poiret One', cursive;
+            font-size: 60px;
+            color: #ffff00;
+        }
+        body {
+            background-color: black;
+        }
+        textarea {
+            font-size: 18px;
+        }
+    </style>
+    <title>Rot 13</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <h1>Enter Some Text To Rot13!</h1>
+                <form method="post">
+                    <textarea name="text" cols="50" rows="20" >{{ data
+                        }}</textarea>
+                    <br>
+                    <input type="submit" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
