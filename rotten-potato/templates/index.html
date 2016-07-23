@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rotten Potato</title>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-2.2.4.js" ></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <!--Google Font-->
+    <link href='https://fonts.googleapis.com/css?family=Nunito:300' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet' type='text/css'>
+    <!--Local CSS-->
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: black;
+        }
+        h1 {
+            font-family: 'Poiret One', cursive;
+            text-transform: uppercase;
+        }
+        .title {
+            color: yellow;
+            font-family: 'Nunito', sans-serif;
+        }
+        .year {
+            color: yellow;
+            font-family: 'Nunito', sans-serif;
+        }
+        h5 {
+            color: #e6e600;
+        }
+        .description {
+            color: #e6f2ff;
+        }
+        p#jumbo_info {
+            color: black;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!--Nav Bar ------------------------->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Potato</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <!--Search-->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <form class="navbar-form navbar-left" role="search">
+                        <div class="form-group">
+                            <input type="text" class="form-control"
+                                placeholder="IMDB Movie Link ">
+                            </div>
+                        <button type="submit" name="submit" value="add_link" class="btn btn-default">Add New Movie</button>
+                    </form>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+            </div>
+    </nav>
+
+    <!--Jumbo Tron ---------------------->
+    <div class="container">
+        <div class="jumbotron">
+            <div class="page-header">
+                <h1>{{jombo_name}}<small> My favorite movies</small></h1>
+            </div>
+        </div>
+    </div>
+
+    <!--List of Images and Their Info --->
+    <div class="container">
+        <div class="row">
+
+            {% for movie in movies %}
+            <div class="col-md-3 col-sm-6">
+                <div class="caption">
+                    <img src="{{ movie[4] }}">
+                    <h3 class="title">{{ movie[0] }}</h3>
+                    <h5 class="year">{{ movie[2] }}</h5>
+                    <p class="description">{{ movie[1] }}</p>
+                    <p class="genre">{{ movie[-1] }}</p>
+                    <p><a href="{{ movie[3] }}" class="btn btn-primary movie-tile" role="button">Trailer</a></p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

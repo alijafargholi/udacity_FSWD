@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ascii Art Gallery</title>
+</head>
+<body>
+    <h1>This is the Gallery Title</h1>
+    <div class="container">
+        <div class="row">
+            {% for art in arts %}
+            <div class="col-lg-6">
+                <hr>
+                <form method="post">
+                    <h4> {{ art.title }} </h4>
+                    <pre> {{ art.art }}</pre>
+                    <div>Rate: {{ art.rate }}</div>
+                    <input type="submit" name="like" value="up">
+                    <input type="submit" name="like" value="down">
+                    <div>{{FOO}}</div>
+                </form>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

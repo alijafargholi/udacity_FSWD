@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Submit Ascii Art Work</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sx-6">
+                <form method="post">
+                    <h2>{{ main_header }}</h2>
+                    <label>
+                        <div>Title:</div>
+                        <input type="text" name="title" value={{ title_value }}>
+                    </label>
+                    <label>
+                        <div>Artwork:</div>
+                        <textarea id="artwork" name="artwork">{{ artwork_value
+                            }}</textarea>
+                    </label>
+                    <div style="color: red"> {{ error }} </div>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
