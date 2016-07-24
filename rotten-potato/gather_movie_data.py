@@ -1,7 +1,5 @@
 import logging
 import re
-import urllib
-from urllib  import urlencode
 from urllib2 import urlopen
 import ssl
 import BeautifulSoup as B
@@ -28,13 +26,13 @@ def get_movie_info(url_link):
         # Poster URL
         find_poster_url = content.find("div", {"class": "poster"})
         poster_url = find_poster_url.find("img").get("src")
-        # Trailer URL
-        trailer_url = get_tailer_url(name)
+        # Trailer ID
+        trailer_id = get_trailer_id(name)
         # Story description
         story = content.find("div", {"class": "summary_text"}).text
 
         # Creating a tuple that contains the movie data
-        data = (name, story, year, trailer_url, poster_url, genre)
+        data = (name, story, year, trailer_id, poster_url, genre)
 
         return data
 
@@ -42,15 +40,16 @@ def get_movie_info(url_link):
         logging.error(e)
 
 
-def get_tailer_url(movie_name):
-    """ It finds the YouTube movie trailer from the given name.
-
+def get_trailer_id(movie_name):
+    """ It finds the YouTube movie trailer ID from the given name.
+The+Secret+Life+of+Pets+trailer
     :param movie_name: (str) name of the movie.
-    :return: (srt) YouTube movie trailer url
+    :return: (srt) YouTube movie trailer ID from YouTube
     """
 
     youtube_search_name = movie_name.replace(" ", "+") + "+Trailer"
 
+    # TODO: Figure out why I need to use ssl!!
     # http://stackoverflow.com/questions/27835619/ssl-certificate-verify-failed
     # -error
     context = ssl._create_unverified_context()
@@ -63,14 +62,15 @@ def get_tailer_url(movie_name):
 
     soup_content = B.BeautifulSoup(content)
 
-    # feeling lucky
+    # feeling lucky. Gathering the trailer info base on the assumption that
+    # the  first hit is the main trailer
+    # get the first thumbnail
     first_youtube_result = soup_content.find("span",
                                              {"class": "yt-thumb-simple"})
-
+    # get the thumbnail image src path
     youtube_image_url = first_youtube_result.find("img").get("src")
+    # gather the video id from the link, using regular expression.
     youtube_trailer_id_pattern = re.compile("vi/(.*)/")
     youtube_id = re.findall(youtube_trailer_id_pattern, youtube_image_url)[0]
 
-    youtube_trailer_url = "https://www.youtube.com/watch?v=" + youtube_id
-
-    return youtube_trailer_url
+    return youtube_id
