@@ -46,8 +46,6 @@
                         <span class="icon-bar"></span>
                     </button>
                         <a class="navbar-brand" href="/">Potato</a>
-                        <input type="submit" class="navbar-brand" name="Foo ">
-                        <a class="navbar-brand" href="about.html">About</a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -61,7 +59,7 @@
                                 <input type="submit" name="submit" value="Add New Movie" class="btn btn-default">
                         </div>
                     </form>
-                </div><!-- /.navbar-collapse -->
+                </div>
             </div><!-- /.container-fluid -->
             </div>
     </nav>
@@ -79,6 +77,10 @@
     <!-- List of Images and Their Info --->
     <div class="container">
         <div class="row">
+            <!--Show error ---------------------->
+            <div class="col-sm-12">
+                {{ error }}
+            </div>
              <!--Creating a DIV for each movie -->
             {% for movie in movies %}
             <div class="col-md-3 col-sm-6">

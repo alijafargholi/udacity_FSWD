@@ -19,7 +19,7 @@ import webapp2
 import jinja2
 import time
 
-# Import
+# Import Google app database
 from google.appengine.ext import db
 
 # Import local modules
@@ -35,8 +35,7 @@ jinja_env = jinja2.Environment(
 
 
 class Movies(db.Model):
-    """
-
+    """ This is the entity for storing the movie's data into the database.
     """
 
     name = db.StringProperty(required=True)
@@ -49,8 +48,7 @@ class Movies(db.Model):
 
 
 class Handler(webapp2.RedirectHandler):
-    """
-    Handling the rendering the template.
+    """ Handling the rendering the template.
     """
 
     def write(self, *args, **kwargs):
@@ -66,18 +64,29 @@ class Handler(webapp2.RedirectHandler):
 
 
 class MainHandler(Handler):
-    # def get(self):
-    #     self.render("index.html", movies=[TEMP])
-
+    """ The main handler to show the home page.
+    """
     def get(self):
+        # gather all the existing data from the database and sort it by the
+        # data added
         movies = db.GqlQuery("SELECT * FROM Movies ORDER BY created DESC")
 
+        # Render out the home page and pass in the movies info
         self.render("index.html", movies=movies)
 
     def post(self):
+        """ It handles new imdb link submission. Once a new link is posted,
+        it'll scrap the data from the imdb page and add the info to the
+        database and reload the page.
+        """
+
+        # get the new link
         new_link = self.request.get("imdb_link")
+
+        # scrap the given url
         new_movie_data = gather_movie_data.get_movie_info(new_link)
-        # data = (name, story, year, trailer_id, poster_url, genre)
+
+        # save the data into the database
         new_movie = Movies(name=new_movie_data[0],
                            story=new_movie_data[1],
                            year=int(new_movie_data[2]),
@@ -85,15 +94,13 @@ class MainHandler(Handler):
                            poster_url=new_movie_data[4],
                            genre=new_movie_data[5])
         new_movie.put()
+
+        # Wait for 2 seconds and make sure the data is added to the database
+        # so when the page is reloaded it shows the just added movie.
         time.sleep(2)
         self.redirect("/")
 
 
-class About(Handler):
-    def post(self):
-        self.render("about.html")
-
 app = webapp2.WSGIApplication([
     ('/', MainHandler),
-    ('/about', About)
 ], debug=True)

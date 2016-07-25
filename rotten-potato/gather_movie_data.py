@@ -7,7 +7,7 @@ import BeautifulSoup as B
 
 def get_movie_info(url_link):
     """
-    Returns some info from the given movie url
+    Returns the movie's info from the given movie url.
 
     :param url_link: (str) link to the movie on IMDB.
     :return: (list) list of info regarding the movie
@@ -37,29 +37,38 @@ def get_movie_info(url_link):
         return data
 
     except IOError as e:
-        logging.error(e)
+        logging.warning(e)
+        return None
 
 
 def get_trailer_id(movie_name):
     """ It finds the YouTube movie trailer ID from the given name.
-The+Secret+Life+of+Pets+trailer
+
+    This function with do a YouTube query search based on the name of the
+    movie plus the word "Trailer". Then I'll it assumes that the first
+    thumbnail is best option, so it'll uses regular expression tp get the
+    YouTube video ID.
+
     :param movie_name: (str) name of the movie.
     :return: (srt) YouTube movie trailer ID from YouTube
+
+    .. note::
+        I'd consider this a hack at the moment. There are probably better
+        ways to get the trailer of a movie.
     """
 
+    # replace the white space in the given name and attach the word "Trailer"
     youtube_search_name = movie_name.replace(" ", "+") + "+Trailer"
 
-    # TODO: Figure out why I need to use ssl!!
-    # http://stackoverflow.com/questions/27835619/ssl-certificate-verify-failed
-    # -error
-    context = ssl._create_unverified_context()
-
+    # create the search url
     url = 'http://www.youtube.com/results?search_query=' + youtube_search_name
 
-    conn = urlopen(url, context=context)
+    # connecting to the URL and reading the page
+    conn = urlopen(url)
     content = conn.read()
     conn.close()
 
+    # creating the instance of the beautifulSoup to scrap the page
     soup_content = B.BeautifulSoup(content)
 
     # feeling lucky. Gathering the trailer info base on the assumption that
