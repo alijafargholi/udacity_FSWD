@@ -3,8 +3,10 @@
 What is it?
 -----------
 
-It's first project of the Full Stack Web Developer Nanodegree. The Goal of
-this project is a simple website that shows my favorite movies.
+It's first project of the Full Stack Web Developer Nanodegree form Udacity. The
+Goal of this project is a simple website that shows my favorite movies.
+
+Here is the link to the app: [**Rotten-Potato**](http://rotten-potato.appspot.com/)
 
 How it does it?
 ----------------
