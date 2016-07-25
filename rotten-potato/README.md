@@ -6,7 +6,7 @@ What is it?
 It's first project of the Full Stack Web Developer Nanodegree. The Goal of
 this project is a simple website that shows my favorite movies.
 
-How it doest it?
+How it does it?
 ----------------
 
 The requirement of this project was to have the list of the movies and
